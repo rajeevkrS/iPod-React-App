@@ -126,18 +126,18 @@ export default class App extends React.Component {
   seekSongReverse = (e) => {
     let {currentmenu , playing, audio, songItemsUrl, songImgItemsUrl} = this.state;
 
-    // Screen is locked, I dont have to move forward
+    // Screen is locked, I dont have to move backward
     if(currentmenu === -2){
       return;
     }
 
-    // Current song is not playing, I dont have to move forward
+    // Current song is not playing, I dont have to move backward
     if(playing === false){
       return;
     }
-
+// forward
     // If screen is unlocked and song is playing then,
-    // Using Zingtouch Lib for forwarding
+    // Using Zingtouch Lib for backward
     // checking if my wheel angle is less then 250 degree
     if(e.detail.interval < 250){
       // Then pauses the current song and sets paused to TRUE.
@@ -167,9 +167,9 @@ export default class App extends React.Component {
         audio.play()
       });
     }
-    // Checking if the interval is greater than 250 but less than 10000. This range typically indicates a fast-forward action as it's presumed that rapid movement or a larger rotation of the seeking control (wheel, for instance) is being performed.
+    // Checking if the interval is greater than 250 but less than 10000. This range typically indicates a fast-backward action as it's presumed that rapid movement or a larger rotation of the seeking control (wheel, for instance) is being performed.
     else if(e.detail.interval > 250 && e.detail.interval < 10000){
-      // Calculates a time interval for fast-forwarding.
+      // Calculates a time interval for fast-backwarding.
       const interval = e.detail.interval / 100;
 
       // updating the state
@@ -177,6 +177,34 @@ export default class App extends React.Component {
         prevState.audio.currentTime -= interval;
         return prevState;
       });
+    }
+
+  }
+
+
+  // Toggle function on Play and Pause button.
+  togglePlayPause = () => {
+    let {currentmenu , playing, audio} = this.state;
+
+    // Screen is locked, simply return
+    if(currentmenu === -2){
+      return;
+    }
+
+    // If current song is playing then, updating the playing state to false then pausing the song
+    if(playing === true){
+      this.setState({
+        playing: false
+      })
+      audio.pause();
+    }
+
+    // If current song is pasue then, updating the playing state to true then playing the song
+    if(playing === false){
+      this.setState({
+        playing: true
+      })
+      audio.play();
     }
 
   }
