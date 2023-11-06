@@ -33,8 +33,8 @@ export default class Navbar extends React.Component {
         <h3 className="time">{time}</h3>
         <div className="right-container-nav">
           <img className="battery" src={BatImg} alt="battery" />
-
         </div>
+        
       </div>
     );
   }
