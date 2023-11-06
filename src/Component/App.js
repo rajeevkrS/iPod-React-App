@@ -29,7 +29,8 @@ export default class App extends React.Component {
     this.state = {
       active: 0, //Active list items
       menuItems: ["Now Playing", "Music", "Games", "Settings"],
-      musicItems: [song1, song2, song3, song4, song5],
+      musicItems: ["All Songs", "Artist", "Albums"], //Items in music
+      songItemsUrl: [song1, song2, song3,song4,song5,],  //songs list
       songImgItemsUrl: [song1Img, song2Img, song3Img, song4Img,song5Img],
       wallpaperItems: [Wallpaper1, Wallpaper2, Wallpaper3],
       songItems: [
@@ -47,7 +48,7 @@ export default class App extends React.Component {
         3: [8,9,10] //"Settings" Option has 3 index value
         // "Games" option does not have any child options thats why does not included here- 2: [7] which has a text. 
       },
-      currentmenu: -2, // for screen lock
+      currentmenu: -2, // Screen locked
       navigationStack: [], // used for forward and backward
       songUrl: song1, //current song URL
       playing: false, // it helps when the app loads for the first time, song will not play automatically
@@ -60,6 +61,126 @@ export default class App extends React.Component {
       notifyText: "Wallpaper Chnaged",
     }
   }
+
+  // Function on long press of "forward" button tracks are seeked forward
+  seekSongForward = (e) => {
+    let {currentmenu , playing, audio, songItemsUrl, songImgItemsUrl} = this.state;
+
+    // Screen is locked, I dont have to move forward
+    if(currentmenu === -2){
+      return;
+    }
+
+    // Current song is not playing, I dont have to move forward
+    if(playing === false){
+      return;
+    }
+
+    // If screen is unlocked and song is playing then,
+    // Using Zingtouch Lib for forwarding
+    // checking if my wheel angle is less then 250 degree
+    if(e.detail.interval < 250){
+      // Then pauses the current song and sets paused to TRUE.
+      audio.pause();
+
+      // Storing the current song index
+      let songIndex = this.state.songIndex
+
+      // Checking if the current song index is at the end of the playlist,
+      if(songIndex === songItemsUrl.length-1){
+        songIndex = 0; // then code sets songIndex to 0.
+      }else{
+        songIndex++; // Otherwise, increments to move forward to the next song in the playlist.
+      }
+
+      // Storing the current song URL and image URL
+      const songUrl = songItemsUrl[songIndex];
+      const songImgUrl = songImgItemsUrl[songIndex];
+
+      // setting the state of song's index, image, Url and audio with the callback function to play the song.
+      this.setState({
+        songIndex: songIndex,
+        songImgUrl: songImgUrl,
+        songUrl: songUrl,
+        audio: new Audio(songUrl)
+      }, () => {
+        audio.play()
+      });
+    }
+    // Checking if the interval is greater than 250 but less than 10000. This range typically indicates a fast-forward action as it's presumed that rapid movement or a larger rotation of the seeking control (wheel, for instance) is being performed.
+    else if(e.detail.interval > 250 && e.detail.interval < 10000){
+      // Calculates a time interval for fast-forwarding.
+      const interval = e.detail.interval / 100;
+
+      // updating the state
+      this.setState((prevState) => {
+        prevState.audio.currentTime += interval;
+        return prevState;
+      });
+    }
+
+  }
+
+
+  // Function on long press of "backward" button tracks are seeked backward
+  seekSongReverse = (e) => {
+    let {currentmenu , playing, audio, songItemsUrl, songImgItemsUrl} = this.state;
+
+    // Screen is locked, I dont have to move forward
+    if(currentmenu === -2){
+      return;
+    }
+
+    // Current song is not playing, I dont have to move forward
+    if(playing === false){
+      return;
+    }
+
+    // If screen is unlocked and song is playing then,
+    // Using Zingtouch Lib for forwarding
+    // checking if my wheel angle is less then 250 degree
+    if(e.detail.interval < 250){
+      // Then pauses the current song and sets paused to TRUE.
+      audio.pause();
+
+      // Storing the current song index
+      let songIndex = this.state.songIndex
+
+      // Checking if the current song index is at the beginning,
+      if(songIndex === 0){
+        songIndex = songItemsUrl.length-1; // then code sets songIndex to last song of the list.
+      }else{
+        songIndex--; // Otherwise, decrements to move backward to the next song in the playlist.
+      }
+
+      // Storing the current song URL and image URL
+      const songUrl = songItemsUrl[songIndex];
+      const songImgUrl = songImgItemsUrl[songIndex];
+
+      // setting the state of song's index, image, Url and audio with the callback function to play the song.
+      this.setState({
+        songIndex: songIndex,
+        songImgUrl: songImgUrl,
+        songUrl: songUrl,
+        audio: new Audio(songUrl)
+      }, () => {
+        audio.play()
+      });
+    }
+    // Checking if the interval is greater than 250 but less than 10000. This range typically indicates a fast-forward action as it's presumed that rapid movement or a larger rotation of the seeking control (wheel, for instance) is being performed.
+    else if(e.detail.interval > 250 && e.detail.interval < 10000){
+      // Calculates a time interval for fast-forwarding.
+      const interval = e.detail.interval / 100;
+
+      // updating the state
+      this.setState((prevState) => {
+        prevState.audio.currentTime -= interval;
+        return prevState;
+      });
+    }
+
+  }
+
   
   render() {
     return (
@@ -70,3 +191,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+
