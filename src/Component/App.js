@@ -58,7 +58,7 @@ export default class App extends React.Component {
       wheelColor: "white",
       wallpaper: 0,
       noty: false, //initial notification
-      notifyText: "Wallpaper Chnaged",
+      notifyText: "Wallpaper Chnaged", //initial notification text
     };
   }
 
@@ -265,6 +265,82 @@ export default class App extends React.Component {
     }
 
   };
+
+
+  // Function for changing the theme of iPod body
+  setTheme = (id) => {
+    let theme = "";
+
+    // Setting the theme with the particular id
+    if(id === 0){
+      theme = "#f0f0f0"
+    }
+    else if(id === 1){
+      theme = "#555d50"
+    }
+    else if(id === 2){
+      theme = "#d1cdda"
+    }
+    else if(id === 3){
+      theme = "#c4aead"
+    }
+    else if(id === 4){
+      theme = "#ffcc00"
+    }
+
+    // Updating the state
+    this.setState({
+      theme: theme,
+      noty: true,
+      notifyText: "Theme Changed!"
+    });
+
+    return;
+  }
+
+  // Function for changing the wallpaper of iPod display
+  setWallpaper = (id) => {
+
+    // Updating the state
+    this.setState({
+      wallpaper: id,
+      noty: true,
+      notifyText: "Wallpaper Changed!"
+    });
+
+    return;
+  }
+
+
+  // Function for changing the wheel color
+  setWheelColor = (id) => {
+    let wheelColor = "";
+
+    // Setting the theme with the particular id
+    if(id === 0){
+      wheelColor = "#212121"
+    }
+    else if(id === 1){
+      wheelColor = "white"
+    }
+    else if(id === 2){
+      wheelColor = "#3e2723"
+    }
+    else if(id === 3){
+      wheelColor = "#3d5afe"
+    }
+
+    // Updating the state
+    this.setState({
+      wheelColor: wheelColor,
+      noty: true,
+      notifyText: "Wheel Color Changed!"
+    });
+
+    return;
+  }
+
+
 
   render() {
     return (
