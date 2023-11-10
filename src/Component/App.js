@@ -341,30 +341,6 @@ export default class App extends React.Component {
   }
 
 
-  // Function for change menu backwards on press of center button.
-  // The "navigationStack" is used to keep track of the navigation history in the application. It stores the IDs of the menus/screens that the user has visited, allowing for backward navigation.
-  changeMenuBackward = () => {
-    const navigationStack = this.state.navigationStack.slice();
-
-    // Screen is locked, simply return
-    if (this.state.currentMenu === -2) {
-      return;
-    }
-    else{
-      // Get the previous menu ID from the navigation stack
-      const prevId = navigationStack.pop();
-
-      // Update the state
-      this.setState({
-        currentMenu: prevId,
-        navigationStack: navigationStack,
-        active: 0
-      });
-
-      return;
-    }
-  }
-
   // Function for updating the song.
   changePlayingSongFromMusicMenu = (id, navigationStack) => {
     const songUrl = this.state.songItemsUrl[id];
@@ -389,6 +365,124 @@ export default class App extends React.Component {
     });
 
     return;
+  }
+
+
+  // Function for change menu backward on press of center button.
+  // The "navigationStack" is used to keep track of the navigation history in the application. It stores the IDs of the menus/screens that the user has visited, allowing for backward navigation.
+  changeMenuBackward = () => {
+    const navigationStack = this.state.navigationStack.slice();
+
+    // Screen is locked, simply return
+    if (this.state.currentMenu === -2) {
+      return;
+    }
+    else{
+      // Get the previous menu ID from the navigation stack
+      const prevId = navigationStack.pop();
+
+      // Update the state
+      this.setState({
+        currentMenu: prevId,
+        navigationStack: navigationStack,
+        active: 0
+      });
+
+      return;
+    }
+  }
+
+
+  // Function for change menu forward on press of center button.
+  changeMenuForward = (id, fromMenu) => {
+    const navigationStack = this.state.navigationStack.slice();
+
+    // Check if the current index are not equal to current menu then simply return.
+    if(
+        fromMenu !== -2 &&
+        fromMenu !== -1 &&
+        fromMenu !== 1 &&
+        fromMenu !== 4 &&
+        fromMenu !== 3 &&
+        fromMenu !== 8 &&
+        fromMenu !== 9 &&
+        fromMenu !== 0 &&
+        fromMenu !== 7 &&
+        fromMenu !== 10 
+      ){
+        return;
+      }
+
+    // Check if the current menu is equal to -1 index, then pushing the currentMenu into the navigation stack and updating the state.
+    if(fromMenu === -1){
+      navigationStack.push(this.state.currentMenu);
+
+      this.setState({
+        currentMenu: id,
+        navigationStack: navigationStack,
+        active: 0
+      });
+
+      return;
+    }
+
+    // Check if the current menu is equal to -2 index, then currentMenu will be -1 which is "Now Playing" option.
+    if(fromMenu === -2){
+      navigationStack.push(this.state.currentMenu);
+
+      this.setState({
+        currentMenu: -1, // "Now Playing"
+        navigationStack: navigationStack,
+        active: 0
+      });
+
+      return;
+    }
+    
+    // Checking if the currentMenu is equal to 7 || 0, then togglePlayPause() will be called.
+    if(fromMenu === 7 || fromMenu === 0){
+      this.togglePlayPause();
+      return;
+    }
+
+    // Checking if the currentMenu is equal to 8, then setTheme(id) will be called.
+    if(fromMenu === 8){
+      this.setTheme(id);
+      return;
+    }
+
+    // Checking if the currentMenu is equal to 9, then setWheelColor(id) will be called.
+    if(fromMenu === 8){
+      this.setWheelColor(id);
+      return;
+    }
+
+    // Checking if the currentMenu is equal to 10, then setWallpaper(id) will be called.
+    if(fromMenu === 8){
+      this.setWallpaper(id);
+      return;
+    }
+
+    // Checking if the currentMenu is equal to 4, then changePlayingSongFromMusicMenu() will be called.
+    if(fromMenu === 4){
+      this.changePlayingSongFromMusicMenu(id, navigationStack, fromMenu);
+      return;
+    }
+
+    // Pushing the currentMenu's true codintion into the navigationStack
+    navigationStack.push(this.state.currentMenu);    
+
+    // To illustrate with an example, suppose "fromMenu" is 1 (representing "Music") and "id" is 0. The line would be equivalent to accessing this.state.menuMapping[1][0], which retrieves the first submenu identifier associated with the "Music" menu.
+    const currentMenuId = this.state.menuMapping[fromMenu][id];
+
+    this.setState({
+      currentMenu: currentMenuId,
+      navigationStack: navigationStack, 
+      active: 0
+    });
+
+    return;
+
   }
 
 
