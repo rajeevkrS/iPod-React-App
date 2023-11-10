@@ -1,6 +1,5 @@
 import React from "react";
-import Wheel from "./Wheel";
-import Display from "./Display";
+import Case from "./Case";
 
 // Import songs
 import song1 from "../static/songs/Post Malone - White Iverson.mp3";
@@ -20,6 +19,7 @@ import song5Img from "../static/Never Gonna Give You Up.png";
 import Wallpaper1 from "../static/wallpaper1.jpg";
 import Wallpaper2 from "../static/wallpaper2.jpg";
 import Wallpaper3 from "../static/wallpaper3.jpg";
+
 
 export default class App extends React.Component {
   constructor() {
@@ -486,11 +486,46 @@ export default class App extends React.Component {
   }
 
 
+  // Function for set notification as false after sending notification
+  setNoty = () => {
+    this.setState({
+      noty: false
+    });
+
+    return;
+  } 
+
+
   render() {
+    const {audio, active, currentMenu, menuItems, musicItems, songItems, playing, songIndex, theme, songUrl, songImgUrl, wheelColor, wallpaper, wallpaperItems, noty, notifyText} = this.state;
+
     return (
       <>
-        <Display />
-        <Wheel />
+        <Case 
+          songIndex={songIndex}
+          active={active}
+          menuItems={menuItems}
+          musicItems={musicItems}
+          currentMenu={currentMenu}
+          songItems={songItems}
+          playing={playing}
+          theme={theme}
+          audio={audio}
+          songUrl={songUrl}
+          songImgUrl={songImgUrl}
+          wheelColor={wheelColor}
+          wallpaper={wallpaper}
+          wallpaperItems={wallpaperItems}
+          noty={noty}
+          notifyText={notifyText}
+          changeMenuBackward={this.changeMenuBackward}
+          changeMenuForward={this.changeMenuForward}
+          updateActiveMenu={this.updateActiveMenu}
+          togglePlayPause={this.togglePlayPause}
+          seekSongForward={this.seekSongForward}
+          seekSongReverse={this.seekSongReverse}
+          setNoty={this.setNoty}
+        />
       </>
     );
   }
