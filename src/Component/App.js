@@ -48,7 +48,7 @@ export default class App extends React.Component {
         3: [8, 9, 10], //"Settings" Option has 3 index value
         // "Games" option does not have any child options thats why does not included here- 2: [7] which has a text.
       },
-      currentmenu: -2, // Screen locked
+      currentMenu: -2, // Screen locked
       navigationStack: [], // used for forward and backward
       songUrl: song1, //current song URL
       playing: false, // it helps when the app loads for the first time, song will not play automatically
@@ -64,11 +64,11 @@ export default class App extends React.Component {
 
   // Function on long press of "forward" button tracks are seeked forward
   seekSongForward = (e) => {
-    let { currentmenu, playing, audio, songItemsUrl, songImgItemsUrl } =
+    let { currentMenu, playing, audio, songItemsUrl, songImgItemsUrl } =
       this.state;
 
     // Screen is locked, I dont have to move forward
-    if (currentmenu === -2) {
+    if (currentMenu === -2) {
       return;
     }
 
@@ -127,11 +127,11 @@ export default class App extends React.Component {
 
   // Function on long press of "backward" button tracks are seeked backward
   seekSongReverse = (e) => {
-    let { currentmenu, playing, audio, songItemsUrl, songImgItemsUrl } =
+    let { currentMenu, playing, audio, songItemsUrl, songImgItemsUrl } =
       this.state;
 
     // Screen is locked, I dont have to move backward
-    if (currentmenu === -2) {
+    if (currentMenu === -2) {
       return;
     }
 
@@ -190,10 +190,10 @@ export default class App extends React.Component {
 
   // Toggle function on Play and Pause button.
   togglePlayPause = () => {
-    let { currentmenu, playing, audio } = this.state;
+    let { currentMenu, playing, audio } = this.state;
 
     // Screen is locked, simply return
-    if (currentmenu === -2) {
+    if (currentMenu === -2) {
       return;
     }
 
@@ -340,6 +340,56 @@ export default class App extends React.Component {
     return;
   }
 
+
+  // Function for change menu backwards on press of center button.
+  // The "navigationStack" is used to keep track of the navigation history in the application. It stores the IDs of the menus/screens that the user has visited, allowing for backward navigation.
+  changeMenuBackward = () => {
+    const navigationStack = this.state.navigationStack.slice();
+
+    // Screen is locked, simply return
+    if (this.state.currentMenu === -2) {
+      return;
+    }
+    else{
+      // Get the previous menu ID from the navigation stack
+      const prevId = navigationStack.pop();
+
+      // Update the state
+      this.setState({
+        currentMenu: prevId,
+        navigationStack: navigationStack,
+        active: 0
+      });
+
+      return;
+    }
+  }
+
+  // Function for updating the song.
+  changePlayingSongFromMusicMenu = (id, navigationStack) => {
+    const songUrl = this.state.songItemsUrl[id];
+    const songImgUrl = this.state.songImgItemsUrl[id];
+
+    // Pausing the current playing song
+    this.state.audio.pause();
+
+    // Pausing only happens when new song will be opened,
+    // So setting the state with callback function
+    this.setState({
+      currentMenu: 7, // 7 options will apprear
+      songUrl: songUrl,
+      songImgUrl: songImgUrl,
+      navigationStack: navigationStack,
+      active: 0,
+      playing: true,
+      songIndex: id,
+      audio: new Audio(songUrl)
+    }, () => {
+      this.state.audio.play();
+    });
+
+    return;
+  }
 
 
   render() {
