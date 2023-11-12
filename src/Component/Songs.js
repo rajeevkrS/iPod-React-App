@@ -1,12 +1,25 @@
-import React from 'react';
+import React from "react";
 
-export default class Songs extends React.Component{
+export default class Songs extends React.Component {
+  render() {
+    const { songItems, active } = this.props;
 
-    render(){
-        return(
-            <>
-            
-            </>
-        )
-    }
+    return (
+      <div className="song">
+        <h3>Songs</h3>
+
+        <ul>
+          {songItems.map((element, index) => {
+            return active === index ? (
+              <li key={index} className="active">
+                &nbsp; {element}
+              </li>
+            ) : (
+              <li key={index}>&nbsp; {element}</li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
 }

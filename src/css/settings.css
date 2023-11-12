@@ -1,0 +1,15 @@
+.settings{
+    width: 270px;
+    height: 200px;
+    background-color: #e3f2fd;
+}
+
+li{
+    padding-left: 5px;
+}
+
+h2{
+    margin: -5px;
+    margin-left: 6px;
+    margin-top: 7px;
+}
