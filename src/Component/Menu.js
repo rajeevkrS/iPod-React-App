@@ -16,7 +16,7 @@ export default class Menu extends React.Component {
               return active === index ? (
                 <li key={index} className="active">&nbsp; {element}</li>
               ) : (
-                <li key={index} className="active">&nbsp; {element}</li>
+                <li key={index}>&nbsp; {element}</li>
               );
             })}
           </ul>

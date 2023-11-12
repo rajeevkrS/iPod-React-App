@@ -1,0 +1,9 @@
+.music{
+    width: 270px;
+    height: 190px;
+    background-color: #e3f2fd;
+}
+
+.music #song1{
+    padding: 0;
+}
