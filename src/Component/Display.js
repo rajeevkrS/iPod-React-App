@@ -11,12 +11,18 @@ import WheelColor from "./WheelColor";
 import Themes from "./Themes";
 import Wallpaper from "./Wallpaper";
 
+// On the basis of what the current menu is this item will render only that component
+// Also this displays the navigation bar
+// Key for displaying menu
+// {-2: lock screen, -1 : main menu, 0 : now playing, 1: music menu, 2,5,6 : dummy menu, 3: setings menu,4:songs menu, 7:music playing, 8 :themes menu, 9:wheel color menu, 10:wallpaper menu}
+
+
 export default class Display extends React.Component {
   render() {
     const {active, currentMenu, menuItems, musicItems, songItems, playing, songIndex, audio, songUrl, songImgUrl, wallpaper, wallpaperItems, noty, setNoty, notifyText} = this.props;
 
     return (
-      <div className="display">
+      <div className="display" style={{backgroundImage:`url(${wallpaperItems[wallpaper]})`}}>
         <Navbar 
           noty={noty} 
           setNoty={setNoty} 
