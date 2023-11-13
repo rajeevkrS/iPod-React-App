@@ -3,6 +3,7 @@
   width: 200px;
   height: 200px;
   margin-top: auto;
+  margin-bottom: 20px;
   display: flex;
 }
 
@@ -15,7 +16,7 @@
   background-color: white;
 }
 
-.controll {
+.control {
   color: rgb(210, 210, 210);
   font-weight: 900;
   position: absolute;
@@ -50,12 +51,12 @@
 }
 
 #blank{
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: rgb(210,210,210);
-    position: absolute;
-    left: 30%;
-    top: 30%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgb(210,210,210);
+  position: absolute;
+  left: 30%;
+  top: 30%;
 }
 
