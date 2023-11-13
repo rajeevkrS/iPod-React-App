@@ -42,7 +42,12 @@ export default class Wheel extends React.Component {
             <AiOutlineBackward style={{ color: theme }} />
           </div>
 
-          <div className="blank" id="blank"></div>
+          <div 
+            style={{backgroundColor:theme}} 
+            className="blank" 
+            id="blank" 
+            onClick={() => { changeMenuForward(active, currentMenu)}}>
+            </div>
         </div>
       </div>
     );

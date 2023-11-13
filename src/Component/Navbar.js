@@ -9,7 +9,38 @@ export default class Navbar extends React.Component {
     this.state = {
       time: this.getCurrentTime(),
     };
+    this.stateId = "";
   }
+
+  // if there is no notification then iPod logo, time and battery icon
+  // If there is a notification show it for 1 second and clear it 
+  componentDidMount() {
+    const { noty} = this.props;
+    if (noty === true) {
+      return;
+    }
+    // set an interval of 60 seconds to update time
+    this.stateId = setInterval(() => {
+      this.setState({ time: this.getCurrentTime() });
+    }, 60000);
+  }
+
+  componentDidUpdate(){
+    const {setNoty, noty } = this.props;
+    if(noty === true){
+      setTimeout(function () {
+        setNoty();
+      },1000)
+    }
+  }  
+
+  // Clear the update time interval
+  componentWillUnmount() {
+    const { noty } = this.props;
+    if (noty !== true){
+      clearInterval(this.stateId);
+    }
+  }  
 
   // Time Function - 24 hrs
   getCurrentTime() {
