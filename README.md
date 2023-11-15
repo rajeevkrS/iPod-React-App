@@ -77,6 +77,6 @@ This is a Mini Ipod App Project which is built using React, CSS, Javascript. It 
 
 ## 🐦 Follow Me:
 
-> [LinkedIn](www.linkedin.com/in/rajeev-kumar-sudhansu/)
+> [LinkedIn](https://www.linkedin.com/in/rajeev-kumar-sudhansu-067b91255/)
 
 I hope you like the project. Thanks for reading :)
