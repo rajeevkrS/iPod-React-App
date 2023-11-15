@@ -8,6 +8,7 @@
   background-color: #e3f2fd;
   height: 190px;
   width: 135px;
+  border-bottom-left-radius: 5px;
 }
 
 /* container for Leaf images in menu */
@@ -16,6 +17,13 @@
   background-color: #e3f2fd;
   height: 190px;
   width: 135px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Heading of menu */
+h3{
+  margin: 0px;
+  padding: 0px;
 }
 
 /* List for menu items */
@@ -27,7 +35,10 @@ ul {
 
 /* list item */
 li {
-  padding: 10px 0px;
+  padding: 11px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Active list item */
@@ -47,7 +58,8 @@ li {
 
 /* Leaf image */
 .leaf-img {
-  border: 2px solid black;
-  height: 188px;
-  width: 135px;
+  border-left: 2px solid black;
+  border-bottom-right-radius: 5px;
+  height: 190px;
+  width: 133px;
 }

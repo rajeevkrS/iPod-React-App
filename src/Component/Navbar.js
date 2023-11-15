@@ -56,12 +56,14 @@ export default class Navbar extends React.Component {
 
   render() {
     const { time } = this.state;
+    const {noty, notifyText} = this.props;
 
     return (
       <div className="bar">
 
         <h5 className="heading">iPod</h5>
-        <h3 className="time">{time}</h3>
+        {noty === true && <h5 className="notification">{notifyText}</h5>}
+        {noty === false && <h3 className="time">{time}</h3>}
         <div className="right-container-nav">
           <img className="battery" src={BatImg} alt="battery" />
         </div>

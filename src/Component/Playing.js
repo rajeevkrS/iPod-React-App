@@ -22,12 +22,10 @@ export default class Playing extends React.Component {
 
     this.intervalID = setInterval(() => {
       this.setState(
-        {
-          currentTime: audio.currentTime,
-        },
-        100
-      );
-    });
+      {
+        currentTime: audio.currentTime,
+      });
+    },100);
   }
 
   // Clearing the interval
@@ -59,7 +57,7 @@ export default class Playing extends React.Component {
     return (
       <div className="now-playing-container">
         <div className="song-details">
-          <img src={songImgUrl} alt="Song Image" />
+          <img src={songImgUrl} alt=""/>
           <div>
             {/* Song Name */}
             <h6>{songItems[songIndex]}</h6>
@@ -68,7 +66,7 @@ export default class Playing extends React.Component {
             {playing && <h4 className="play-pause-nav">Playing</h4>}
 
             {/* When Song is Playing then Paused will be displayed */}
-            {!playing && <h4 className="play-pause-nav">Paused</h4>}
+            {!playing && <h4 style={{color: "red"}} className="play-pause-nav">Paused</h4>}
           </div>
         </div>
 

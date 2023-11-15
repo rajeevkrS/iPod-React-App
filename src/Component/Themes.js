@@ -6,7 +6,7 @@ export default class Themes extends React.Component {
     const { active } = this.props;
 
     return (
-      <div className="theme">
+      <div className="music">
         <h2>Theme Select</h2>
 
         <ul>

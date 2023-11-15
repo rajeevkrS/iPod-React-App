@@ -10,9 +10,7 @@ export default class Wheel extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      angle: 0,
-    };
+    this.angle = 0;
   }
 
   render() {
@@ -41,19 +39,21 @@ export default class Wheel extends React.Component {
           <div className="control" id="reverse">
             <AiOutlineBackward style={{ color: theme }} />
           </div>
-
-          <div 
-            style={{backgroundColor:theme}} 
-            className="blank" 
-            id="blank" 
-            onClick={() => { changeMenuForward(active, currentMenu)}}>
-            </div>
         </div>
+
+        <div
+          style={{ backgroundColor: theme }}
+          className="blank"
+          id="blank"
+          onClick={() => {
+            changeMenuForward(active, currentMenu);
+          }}
+        ></div>
       </div>
     );
   }
 
-  // control the wheel roatation action if rotation is more than 15 degrees and also check direction of rotation
+  // Control the wheel roatation action and also check direction of rotation
   wheelControl = (e) => {
     const { updateActiveMenu, currentMenu } = this.props;
 
@@ -64,23 +64,18 @@ export default class Wheel extends React.Component {
       this.angle = Math.abs(e.detail.angle);
       if (e.detail.distanceFromLast === 0) {
         return;
-      } 
-      else if (e.detail.distanceFromLast < 0) {
+      } else if (e.detail.distanceFromLast < 0) {
         updateActiveMenu(1, currentMenu);
-      } 
-      else {
+      } else {
         updateActiveMenu(0, currentMenu);
       }
-    } 
-    else if (Math.abs(this.angle - e.detail.angle) > 15) {
+    } else if (Math.abs(this.angle - e.detail.angle) > 15) {
       this.angle = Math.abs(e.detail.angle);
       if (e.detail.distanceFromLast === 0) {
         return;
-      } 
-      else if (e.detail.distanceFromLast > 0) {
+      } else if (e.detail.distanceFromLast > 0) {
         updateActiveMenu(1, currentMenu);
-      } 
-      else {
+      } else {
         updateActiveMenu(0, currentMenu);
       }
     }

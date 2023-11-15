@@ -6,7 +6,7 @@ export default class wheelColor extends React.Component {
     const { active } = this.props;
 
     return (
-      <div className="wheelColor">
+      <div className="music">
         <h2>Select Wheel Color</h2>
 
         <ul>

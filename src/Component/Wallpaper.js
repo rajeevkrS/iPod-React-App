@@ -5,7 +5,7 @@ export default class Wallpaper extends React.Component {
     const { active } = this.props;
 
     return (
-      <div className="wallpaper">
+      <div className="music">
         <h2>Select Wallpaper</h2>
 
         <ul>

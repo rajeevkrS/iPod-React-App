@@ -1,5 +1,5 @@
 import React from "react";
-import Case from "./Case";
+import Case from "./Case"; // Import iPod body file
 
 // Import songs
 import song1 from "../static/songs/Post Malone - White Iverson.mp3";
@@ -64,16 +64,13 @@ export default class App extends React.Component {
 
   // Function on long press of "forward" button tracks are seeked forward
   seekSongForward = (e) => {
-    let { currentMenu, playing, audio, songItemsUrl, songImgItemsUrl } =
-      this.state;
-
     // Screen is locked, I dont have to move forward
-    if (currentMenu === -2) {
+    if (this.state.currentMenu === -2) {
       return;
     }
 
     // Current song is not playing, I dont have to move forward
-    if (playing === false) {
+    if (this.state.playing === false) {
       return;
     }
 
@@ -82,21 +79,21 @@ export default class App extends React.Component {
     // checking if my wheel angle is less then 250 degree
     if (e.detail.interval < 250) {
       // Then pauses the current song and sets paused to TRUE.
-      audio.pause();
+      this.state.audio.pause();
 
       // Storing the current song index
       let songIndex = this.state.songIndex;
 
       // Checking if the current song index is at the end of the playlist,
-      if (songIndex === songItemsUrl.length - 1) {
+      if (songIndex === this.state.songItemsUrl.length - 1) {
         songIndex = 0; // then code sets songIndex to 0.
       } else {
         songIndex++; // Otherwise, increments to move forward to the next song in the playlist.
       }
 
       // Storing the current song URL and image URL
-      const songUrl = songItemsUrl[songIndex];
-      const songImgUrl = songImgItemsUrl[songIndex];
+      const songUrl = this.state.songItemsUrl[songIndex];
+      const songImgUrl = this.state.songImgItemsUrl[songIndex];
 
       // setting the state of song's index, image, Url and audio with the callback function to play the song.
       this.setState(
@@ -107,7 +104,7 @@ export default class App extends React.Component {
           audio: new Audio(songUrl),
         },
         () => {
-          audio.play();
+          this.state.audio.play();
         }
       );
     }
@@ -127,16 +124,13 @@ export default class App extends React.Component {
 
   // Function on long press of "backward" button tracks are seeked backward
   seekSongReverse = (e) => {
-    let { currentMenu, playing, audio, songItemsUrl, songImgItemsUrl } =
-      this.state;
-
     // Screen is locked, I dont have to move backward
-    if (currentMenu === -2) {
+    if (this.state.currentMenu === -2) {
       return;
     }
 
     // Current song is not playing, I dont have to move backward
-    if (playing === false) {
+    if (this.state.playing === false) {
       return;
     }
 
@@ -145,21 +139,21 @@ export default class App extends React.Component {
     // checking if my wheel angle is less then 250 degree
     if (e.detail.interval < 250) {
       // Then pauses the current song and sets paused to TRUE.
-      audio.pause();
+      this.state.audio.pause();
 
       // Storing the current song index
       let songIndex = this.state.songIndex;
 
       // Checking if the current song index is at the beginning,
       if (songIndex === 0) {
-        songIndex = songItemsUrl.length - 1; // then code sets songIndex to last song of the list.
+        songIndex = this.state.songItemsUrl.length - 1; // then code sets songIndex to last song of the list.
       } else {
         songIndex--; // Otherwise, decrements to move backward to the next song in the playlist.
       }
 
       // Storing the current song URL and image URL
-      const songUrl = songItemsUrl[songIndex];
-      const songImgUrl = songImgItemsUrl[songIndex];
+      const songUrl = this.state.songItemsUrl[songIndex];
+      const songImgUrl = this.state.songImgItemsUrl[songIndex];
 
       // setting the state of song's index, image, Url and audio with the callback function to play the song.
       this.setState(
@@ -170,7 +164,7 @@ export default class App extends React.Component {
           audio: new Audio(songUrl),
         },
         () => {
-          audio.play();
+          this.state.audio.play();
         }
       );
     }
@@ -190,27 +184,25 @@ export default class App extends React.Component {
 
   // Toggle function on Play and Pause button.
   togglePlayPause = () => {
-    let { currentMenu, playing, audio } = this.state;
-
     // Screen is locked, simply return
-    if (currentMenu === -2) {
+    if (this.state.currentMenu === -2) {
       return;
     }
 
     // If current song is playing then, updating the playing state to false then pausing the song
-    if (playing === true) {
+    if (this.state.playing === true) {
       this.setState({
         playing: false,
       });
-      audio.pause();
+      this.state.audio.pause();
     }
 
     // If current song is pasue then, updating the playing state to true then playing the song
-    if (playing === false) {
+    if (this.state.playing === false) {
       this.setState({
         playing: true,
       });
-      audio.play();
+      this.state.audio.play();
     }
   };
 
@@ -218,8 +210,6 @@ export default class App extends React.Component {
   // Function for updating active menu when rotation is happening on the options.
   // menu here will act as an index
   updateActiveMenu = (direction, menu) => {
-    const {lengthMenuKey, active} = this.state;
-
     if (
       menu !== -1 &&
       menu !== 1 &&
@@ -236,7 +226,7 @@ export default class App extends React.Component {
     let max = 0;
 
     // length of max is = to menu key length
-    max = lengthMenuKey[menu];
+    max = this.state.lengthMenuKey[menu];
 
     // The direction parameter essentially controls whether the active state should move forward or backward.
 
@@ -244,11 +234,11 @@ export default class App extends React.Component {
     if(direction === 1){
       // "When wheel gets rotated to right side: (Now Playing->Music->Games->Settings)"
       // If it reaches the max limit, it resets to the min value. 
-      if(active >= max){
+      if(this.state.active >= max){
         this.setState({ active: min });
       }
       else{ //Otherwise, it simply increases active by 1.
-        this.setState({ active: active + 1 });
+        this.setState({ active: this.state.active + 1 });
       }
     }
 
@@ -256,11 +246,11 @@ export default class App extends React.Component {
     else{
       // "When wheel gets rotated to left side: (Now Playing->Settings->Games->Music)"
       // If it goes below the min limit, it resets to the max value.
-      if(active <= min){
+      if(this.state.active <= min){
         this.setState({ active: max });
       }
       else{ //Otherwise, it simply decreases active by 1.
-        this.setState({ active: active - 1 });
+        this.setState({ active: this.state.active - 1 });
       }
     }
 
@@ -452,13 +442,13 @@ export default class App extends React.Component {
     }
 
     // Checking if the currentMenu is equal to 9, then setWheelColor(id) will be called.
-    if(fromMenu === 8){
+    if(fromMenu === 9){
       this.setWheelColor(id);
       return;
     }
 
     // Checking if the currentMenu is equal to 10, then setWallpaper(id) will be called.
-    if(fromMenu === 8){
+    if(fromMenu === 10){
       this.setWallpaper(id);
       return;
     }

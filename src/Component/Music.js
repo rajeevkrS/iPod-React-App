@@ -7,6 +7,8 @@ export default class Music extends React.Component {
 
     return (
       <div className="music">
+        <h3>Music</h3>
+
         <ul>
           {musicItems.map((element, index) => {
             return active === index ? (
