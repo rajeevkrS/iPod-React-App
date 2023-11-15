@@ -7,7 +7,7 @@ export default class wheelColor extends React.Component {
 
     return (
       <div className="music">
-        <h2>Select Wheel Color</h2>
+        <h3>Select Wheel Color</h3>
 
         <ul>
           {["Black", "White", "Brown"].map(

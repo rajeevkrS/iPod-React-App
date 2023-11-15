@@ -7,7 +7,7 @@ export default class Themes extends React.Component {
 
     return (
       <div className="music">
-        <h2>Theme Select</h2>
+        <h3>Theme Select</h3>
 
         <ul>
           {["Snow White", "Black", "USC Gold", "Space Gray", "Pearl"].map(

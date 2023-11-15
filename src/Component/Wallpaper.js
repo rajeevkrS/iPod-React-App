@@ -6,7 +6,7 @@ export default class Wallpaper extends React.Component {
 
     return (
       <div className="music">
-        <h2>Select Wallpaper</h2>
+        <h3>Select Wallpaper</h3>
 
         <ul>
           {["Wallpaper 1", "Wallpaper 2", "Wallpaper 3"].map(

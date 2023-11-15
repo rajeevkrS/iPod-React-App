@@ -7,7 +7,7 @@ export default class Settings extends React.Component {
 
     return (
       <div className="settings">
-        <h2>Settings</h2>
+        <h3>Settings</h3>
 
         <ul>
           {active === 0 ? <li className="active">Themes</li> : <li>Themes</li>}
