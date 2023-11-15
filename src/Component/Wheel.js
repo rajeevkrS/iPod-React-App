@@ -4,6 +4,7 @@ import { AiOutlineForward } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
 import { BiPause } from "react-icons/bi";
 import { AiOutlineBackward } from "react-icons/ai";
+import { FaApple } from "react-icons/fa";
 import ZingTouch from "zingtouch";
 
 export default class Wheel extends React.Component {
@@ -43,12 +44,12 @@ export default class Wheel extends React.Component {
 
         <div
           style={{ backgroundColor: theme }}
-          className="blank"
+          className="control"
           id="blank"
           onClick={() => {
             changeMenuForward(active, currentMenu);
           }}
-        ></div>
+        ><FaApple style={{ color: wheelColor }}/></div>
       </div>
     );
   }
