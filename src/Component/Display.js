@@ -36,15 +36,15 @@ export default class Display extends React.Component {
 
         {currentMenu === 1 && <Music musicItems={musicItems} active={active}/>}
 
-        {currentMenu === 2 && <div className="blank-div"><h1 className="empty-text">Games</h1></div>}
+        {currentMenu === 2 && <div style={{borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px"}} className="blank-div"><h1 className="empty-text">Games</h1></div>}
 
         {currentMenu === 3 && <Settings active={active}/>}
 
         {currentMenu === 4 && <Songs songItems={songItems} active={active}/>}
 
-        {currentMenu === 5 && <div className="blank-div"><h1 className="empty-text">Artist</h1></div>}
+        {currentMenu === 5 && <div style={{borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px"}} className="blank-div"><h1 className="empty-text">Artist</h1></div>}
 
-        {currentMenu === 6 && <div className="blank-div"><h1 className="empty-text">Albums</h1></div>}
+        {currentMenu === 6 && <div style={{borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px"}} className="blank-div"><h1 className="empty-text">Albums</h1></div>}
 
         {(currentMenu === 0 || currentMenu === 7) && <Playing songImgUrl={songImgUrl} audio={audio} songUrl={songUrl} playing={playing} songItems={songItems} songIndex={songIndex}/>}
 
