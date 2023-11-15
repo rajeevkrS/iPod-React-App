@@ -7,7 +7,7 @@ export default class Navbar extends React.Component {
     super();
 
     this.state = {
-      time: this.getCurrentTime(),
+      time: this.getCurrentTime()
     };
     this.stateId = "";
   }
@@ -22,7 +22,7 @@ export default class Navbar extends React.Component {
     // set an interval of 60 seconds to update time
     this.stateId = setInterval(() => {
       this.setState({ time: this.getCurrentTime() });
-    }, 60000);
+    }, 1000);
   }
 
   componentDidUpdate(){
