@@ -2,8 +2,8 @@ import React from "react";
 import "../css/playing.css";
 
 export default class Playing extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       currentTime: 0,
@@ -23,7 +23,7 @@ export default class Playing extends React.Component {
     this.intervalID = setInterval(() => {
       this.setState(
       {
-        currentTime: audio.currentTime,
+        currentTime: this.props.audio.currentTime,
       });
     },100);
   }
